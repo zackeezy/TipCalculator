@@ -8,6 +8,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.text.*;
+import edu.harding.tipcalculator.TipCalculatorModel;
 
 public class MainActivity extends AppCompatActivity {
     private EditText billAmount;
@@ -34,12 +35,15 @@ public class MainActivity extends AppCompatActivity {
             tipPercentFloat = Float.parseFloat(tipPercent.getText().toString());
             Float billAmountfloat;
             billAmountfloat = Float.parseFloat(billAmount.getText().toString());
+            TipCalculatorModel tcm = new TipCalculatorModel();
+            tcm.setTipPercent(tipPercentFloat);
+            tcm.setTotal(billAmountfloat);
             Float tipTotalFloat;
-            tipTotalFloat = billAmountfloat * tipPercentFloat / 100;
+            tipTotalFloat = tcm.getTipTotal();
             NumberFormat moneyFormat;
             moneyFormat = NumberFormat.getCurrencyInstance();
             tipTotal.setText(moneyFormat.format(tipTotalFloat));
-            Float totalFloat = billAmountfloat + tipTotalFloat;
+            Float totalFloat = tcm.getBill();
             total.setText(moneyFormat.format(totalFloat));
         }
     }
